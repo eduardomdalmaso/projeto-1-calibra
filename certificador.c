@@ -4,7 +4,7 @@
 int main(void)
 {
     int a, i;
-    float vr[50], vm[50], ac[50], u[50], uc;
+    float vr[50], vm[50], ac[50], u[50], ca[50], uc;
 
     printf("\n");
         printf("Digite todos os pontos de calibração do certificado:");
@@ -41,7 +41,19 @@ int main(void)
                                                                                 else{
                                                                                     ac[i] = ac[i];
                                                                                     }
+        printf("\n");
                                                                                         printf("\n|CA| = |VR| - |VM|, ponto [%d]:%.2f",i,ac[i]);
+                                                                                    ca[i] = ac[i] + u[i];
+                                                                                printf("\nIncerteza do certificado ponto[%d] = [%.2f]",i,ca[i]);    
+        printf("\n");
+        printf("\n");
+                                                                            if(ca[i] > uc){
+                                                                                printf("REPROVADO no ponto: [%d]",i);
+                                                                            }
+                                                                        else{
+                                                                            printf("APROVADO no ponto: [%d]",i);
+                                                                        }
+        printf("\n");
 
 
     }
