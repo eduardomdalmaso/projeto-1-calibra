@@ -1,65 +1,48 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(void)
-{
-    int a, i;
-    float vr[50], vm[50], ac[50], u[50], ca[50], uc;
-
-    printf("\n");
-        printf("Digite todos os pontos de calibração do certificado:");
-            scanf("%d",&a);
-        printf("Limite de aceitação conforme INMETRO:");
-            scanf("%f",&uc);
-    printf("\n");
-
-    for(i = 1; i <= a; i++){
-        printf("\n");
-            printf("Ponto referência [%d]:",i);
-                scanf("%f",&vr[i]);
-                    printf("Ponto medido [%d]:",i);
-                        scanf("%f",&vm[i]);
-                            printf("Limite de aceitação ponto [%d]:",i);
-                                scanf("%f",&u[i]);
-        printf("\n");
-                                    if(vr[i] < 0){
-                                        vr[i] = vr[i]* - 1;
-                                    }
-                                            else{
-                                                vr[i] = vr[i];
-                                            }
-                                                    if(vm[i] < 0){
-                                                        vm[i] = vm[i]* - 1;
-                                                    }
-                                                            else{
-                                                                vm[i] = vm[i];
-                                                            }
-                                                                    ac[i] = vm[i] - vr[i];
-                                                                        if(ac[i] < 0){
-                                                                            ac[i] = ac[i]* - 1;
-                                                                        }
-                                                                                else{
-                                                                                    ac[i] = ac[i];
-                                                                                    }
-        printf("\n");
-                                                                                        printf("\n|CA| = |VR| - |VM|, ponto [%d]:%.2f",i,ac[i]);
-                                                                                    ca[i] = ac[i] + u[i];
-                                                                                printf("\nIncerteza do certificado ponto[%d] = [%.2f]",i,ca[i]);    
-        printf("\n");
-        printf("\n");
-                                                                            if(ca[i] > uc){
-                                                                                printf("REPROVADO no ponto: [%d]",i);
-                                                                            }
-                                                                        else{
-                                                                            printf("APROVADO no ponto: [%d]",i);
-                                                                        }
-        printf("\n");
-
-
+float obtem_modulo(float numero){
+    if(numero < 0){
+        numero = numero * -1;
     }
+    return numero;
+}
 
+int main(void){
+    int qtd, i;
+    float incerteza_certif;
 
+    printf("\nDigite a quantidade de pontos de calibração do certificado:"); 
+    scanf("%d", &qtd);
+    printf("Limite de aceitação conforme INMETRO:");
+    scanf("%f", &incerteza_certif);
+    printf("\n");
 
+    float valor_ref[qtd], valor_medio[qtd], erro[qtd], incerteza_INMETRO[qtd], ca[qtd];
 
+    for(i = 1; i <= qtd; i++){
+        printf("\nPonto referência [%d]:", i);
+        scanf("%f", &valor_ref[i]);
+        printf("Ponto medido [%d]:", i);
+        scanf("%f", &valor_medio[i]);
+        printf("Limite de aceitação ponto [%d]:", i);
+        scanf("%f", &incerteza_INMETRO[i]);
+        
+        valor_ref[i] = obtem_modulo(valor_ref[i]);
+        valor_medio[i] = obtem_modulo(valor_medio[i]); 
+        erro[i] = valor_medio[i] - valor_ref[i];
+        erro[i] = obtem_modulo(erro[i]);
+        ca[i] = erro[i] + incerteza_INMETRO[i];
+
+        printf("|CA| = |VR| - |valor_medio|, ponto [%d]:%.2f\n", i, erro[i]);
+        printf("Incerteza do certificado ponto[%d] = [%.2f]\n", i, ca[i]);    
+
+        //VERIFICA SE O VALOR ESTA DENTRO DO LIMITE DE ACEITACAO DO INMETRO
+        if(ca[i] > incerteza_certif){
+            printf("REPROVADO no ponto: [%d]\n", i);
+        }else{
+            printf("APROVADO no ponto: [%d]\n", i);
+        }
+    }
     return 0;
 }
