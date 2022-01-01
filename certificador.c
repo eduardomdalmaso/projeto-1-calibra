@@ -4,11 +4,13 @@
 int main(void)
 {
     int a, i;
-    float vr[50], vm[50], ac[50];
+    float vr[50], vm[50], ac[50], u[50], uc;
 
     printf("\n");
         printf("Digite todos os pontos de calibração do certificado:");
             scanf("%d",&a);
+        printf("Limite de aceitação conforme INMETRO:");
+            scanf("%f",&uc);
     printf("\n");
 
     for(i = 1; i <= a; i++){
@@ -17,6 +19,8 @@ int main(void)
                 scanf("%f",&vr[i]);
                     printf("Ponto medido [%d]:",i);
                         scanf("%f",&vm[i]);
+                            printf("Limite de aceitação ponto [%d]:",i);
+                                scanf("%f",&u[i]);
         printf("\n");
     }
 
@@ -27,32 +31,27 @@ int main(void)
         else{
             vr[i] = vr[i];
         }
-    }
 
-    for(i = 1; i <= a; i++){
-        if(vm[i] < 0){
-            vm[i] = vm[i]* - 1;
-        }
-        else{
-            vm[i] = vm[i];
-        }
-            //printf("\n");
-                //printf("Valor referência em módulo: %.2f",vr[i]);
-                    //printf("\nValor medido em módulo: %.2f", vm[i]);
-            //printf("\n");
-    }
-
-    for(i = 1; i <= a; i++){
-        ac[i] = vm[i] - vr[i];
-            if(ac[i] < 0){
-                ac[i] = ac[i]* - 1;
+            if(vm[i] < 0){
+                vm[i] = vm[i]* - 1;
             }
             else{
-                ac[i] = ac[i];
+                vm[i] = vm[i];
             }
-            printf("\n|CA| = |VR| - |VM|, ponto [%d]:%.2f",i,ac[i]);
-    }
+                ac[i] = vm[i] - vr[i];
+                    if(ac[i] < 0){
+                        ac[i] = ac[i]* - 1;
+                    }
+                    else{
+                        ac[i] = ac[i];
+                    }
+                    printf("\n|CA| = |VR| - |VM|, ponto [%d]:%.2f",i,ac[i]);
 
+                            //printf("\n");
+                                //printf("Valor referência em módulo: %.2f",vr[i]);
+                                    //printf("\nValor medido em módulo: %.2f", vm[i]);
+                            //printf("\n");
+    }
 
 
 
