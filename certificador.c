@@ -22,35 +22,29 @@ int main(void)
                             printf("Limite de aceitação ponto [%d]:",i);
                                 scanf("%f",&u[i]);
         printf("\n");
-    }
+    
+                                    if(vr[i] < 0){
+                                        vr[i] = vr[i]* - 1;
+                                    }
+                                            else{
+                                                vr[i] = vr[i];
+                                            }
+                                                    if(vm[i] < 0){
+                                                        vm[i] = vm[i]* - 1;
+                                                    }
+                                                        else{
+                                                            vm[i] = vm[i];
+                                                        }
+                                                                ac[i] = vm[i] - vr[i];
+                                                                    if(ac[i] < 0){
+                                                                        ac[i] = ac[i]* - 1;
+                                                                    }
+                                                                        else{
+                                                                            ac[i] = ac[i];
+                                                                            }
+                                                                                printf("\n|CA| = |VR| - |VM|, ponto [%d]:%.2f",i,ac[i]);
 
-    for(i = 1; i <= a; i++){
-        if(vr[i] < 0){
-            vr[i] = vr[i]* - 1;
-        }
-        else{
-            vr[i] = vr[i];
-        }
 
-            if(vm[i] < 0){
-                vm[i] = vm[i]* - 1;
-            }
-            else{
-                vm[i] = vm[i];
-            }
-                ac[i] = vm[i] - vr[i];
-                    if(ac[i] < 0){
-                        ac[i] = ac[i]* - 1;
-                    }
-                    else{
-                        ac[i] = ac[i];
-                    }
-                    printf("\n|CA| = |VR| - |VM|, ponto [%d]:%.2f",i,ac[i]);
-
-                            //printf("\n");
-                                //printf("Valor referência em módulo: %.2f",vr[i]);
-                                    //printf("\nValor medido em módulo: %.2f", vm[i]);
-                            //printf("\n");
     }
 
 
